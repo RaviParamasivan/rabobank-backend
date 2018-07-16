@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: rabobank
+Implementation-Version: 0.1.0
+Built-By: senhan
+Implementation-Vendor-Id: com.customerstatement
+Build-Jdk: 1.8.0_92
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/rabobank
+Created-By: Maven Integration for Eclipse
+
