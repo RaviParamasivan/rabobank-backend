@@ -31,16 +31,15 @@ public interface FileProcessor {
 	 * @param fileName
 	 * @return
 	 */
-	default String getFilePath(String fileName) {
+	default File getFilePath(String fileName) {
 		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource(fileName).getFile());
-		return file.getPath();
+		return new File(classLoader.getResource(fileName).getFile());
 	}
 
-	default Boolean generateReport(Records records) throws Exception {
+	default Boolean generateReport(Records records, String outputFileName) throws Exception {
 		Boolean isReportGenerated = false;
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(getFilePath("test.txt")))) {
-			writeToFile(writer, "******************************************************************************");
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outputFileName)))) {
+			writeToFile(writer, "******************** UNIQUE STATEMENTS VALIDATION ****************************");
 			if (!records.isUniqueStatement()) {
 				records.getRecord().parallelStream()
 						.filter(record -> record.getIsUniqueStatement() != null && !record.getIsUniqueStatement())
@@ -51,7 +50,7 @@ public interface FileProcessor {
 			} else {
 				writeToFile(writer, "No Duplicate Statement Found");
 			}
-			writeToFile(writer, "******************************************************************************");
+			writeToFile(writer, "********************* END BALANCE VALIDATION *********************************");
 			if (!records.isValidEndBalance()) {
 				records.getRecord().parallelStream()
 						.filter(record -> record.getIsValidEndBalance() != null && !record.getIsValidEndBalance())
@@ -75,11 +74,13 @@ public interface FileProcessor {
 	}
 
 	default void writeToFile(BufferedWriter writer, String statement) {
+		LOGGER.error(statement);
 		try {
 			writer.write(statement);
+			writer.newLine();
+			writer.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Exception occured while writing the file", e);
 		}
 
 	}

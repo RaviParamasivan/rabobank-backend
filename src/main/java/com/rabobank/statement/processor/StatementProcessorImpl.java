@@ -28,6 +28,9 @@ public class StatementProcessorImpl implements StatementProcessor {
 	@Value("${statement.file.input.type}")
 	private String fileType;
 
+	@Value("${statement.file.output.txt}")
+	private String outputFileName;
+
 	@Autowired
 	private StatementValidater statementValidater;
 
@@ -44,7 +47,7 @@ public class StatementProcessorImpl implements StatementProcessor {
 			records = FileReaderFactory.getFileReader(fileName).readStatement(fileName);
 			statementValidater.validateBalance(records);
 			statementValidater.validateUnique(records);
-			FileReaderFactory.getFileReader(fileName).generateReport(records);
+			FileReaderFactory.getFileReader(fileName).generateReport(records, outputFileName);
 		} catch (Exception e) {
 			LOGGER.error("Exception while processing the data", e);
 		}

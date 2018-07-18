@@ -47,7 +47,7 @@ public class CSVFileProcessorImpl implements FileProcessor {
 		Records records = new Records();
 		List<Record> recordList = new ArrayList<>();
 		Record record = null;
-		try (BufferedReader reader = Files.newBufferedReader(Paths.get(getFilePath(fileName)))) {
+		try (BufferedReader reader = Files.newBufferedReader(Paths.get(getFilePath(fileName).getPath()))) {
 			csvParser = new CSVParser(reader,
 					CSVFormat.DEFAULT
 							.withHeader(Constants.CSV_HEADER_NAME_REFERENCE, Constants.CSV_HEADER_NAME_ACCOUNTNO,

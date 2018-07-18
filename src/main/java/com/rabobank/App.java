@@ -10,8 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.rabobank.statement.processor.StatementProcessor;
 
 /**
- * @author ravi
- *
+ * @author ravi This is main program for reading the content from xml and csv
+ *         file and validate the unique and end balance
  */
 @SpringBootApplication
 public class App implements CommandLineRunner {
