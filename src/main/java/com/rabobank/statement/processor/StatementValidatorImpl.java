@@ -15,10 +15,10 @@ import com.rabobank.domain.Records;
  *
  */
 @Component
-public class StatementValidaterImpl implements StatementValidater {
+public class StatementValidatorImpl implements StatementValidator {
 
 
-	private Validater validater = ((startBalance, mutation, endBalance) -> !StringUtils.isEmpty(startBalance)
+	private Validator validator = ((startBalance, mutation, endBalance) -> !StringUtils.isEmpty(startBalance)
 			&& !StringUtils.isEmpty(mutation) && !StringUtils.isEmpty(endBalance)
 			&& startBalance.add(mutation).compareTo(endBalance) == 0);
 
@@ -66,7 +66,7 @@ public class StatementValidaterImpl implements StatementValidater {
 		if (records != null) {
 			records.setIsValidEndBalance(true);
 			records.getRecord().stream().forEach(record -> {
-				if (validater.isValid(record.getStartBalance(), record.getMutation(), record.getEndBalance())) {
+				if (validator.isValid(record.getStartBalance(), record.getMutation(), record.getEndBalance())) {
 					record.setIsValidEndBalance(true);
 				} else {
 					record.setIsValidEndBalance(false);

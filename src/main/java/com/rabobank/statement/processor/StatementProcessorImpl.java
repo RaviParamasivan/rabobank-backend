@@ -32,7 +32,7 @@ public class StatementProcessorImpl implements StatementProcessor {
 	private String outputFileName;
 
 	@Autowired
-	private StatementValidater statementValidater;
+	private StatementValidator statementValidater;
 
 	/*
 	 * (non-Javadoc) This method read input and output file details from

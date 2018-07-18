@@ -6,7 +6,7 @@ import com.rabobank.domain.Records;
  * @author ravi
  *
  */
-public interface StatementValidater {
+public interface StatementValidator {
 
 	/**
 	 * @param records

@@ -14,48 +14,48 @@ import org.junit.Test;
 import com.rabobank.domain.Record;
 import com.rabobank.domain.Records;
 
-public class StatementValidaterTest {
+public class StatementValidatorTest {
 
-	private StatementValidater statementValidater;
+	private StatementValidator statementValidater;
 
 	@Test
 	public void validateBalanceWithNull() {
-		statementValidater = new StatementValidaterImpl();
+		statementValidater = new StatementValidatorImpl();
 		boolean result = statementValidater.validateBalance(null);
 		assertEquals(result, false);
 	}
 
 	@Test
 	public void validateBalanceInvalidData() {
-		statementValidater = new StatementValidaterImpl();
+		statementValidater = new StatementValidatorImpl();
 		boolean result = statementValidater.validateBalance(getSampleStatements("invalid"));
 		assertFalse(result);
 	}
 
 	@Test
 	public void validateBalanceValidData() {
-		statementValidater = new StatementValidaterImpl();
+		statementValidater = new StatementValidatorImpl();
 		boolean result = statementValidater.validateBalance(getSampleStatements("valid"));
 		assertTrue(result);
 	}
 
 	@Test
 	public void validateUniqueDataNull() {
-		statementValidater = new StatementValidaterImpl();
+		statementValidater = new StatementValidatorImpl();
 		boolean result = statementValidater.validateUnique(null);
 		assertFalse(result);
 	}
 
 	@Test
 	public void validateUniqueData() {
-		statementValidater = new StatementValidaterImpl();
+		statementValidater = new StatementValidatorImpl();
 		boolean result = statementValidater.validateUnique(getDuplicateStatements("valid"));
 		assertTrue(result);
 	}
 
 	@Test
 	public void validateDupliacteData() {
-		statementValidater = new StatementValidaterImpl();
+		statementValidater = new StatementValidatorImpl();
 		boolean result = statementValidater.validateUnique(getDuplicateStatements("invalid"));
 		assertFalse(result);
 	}
