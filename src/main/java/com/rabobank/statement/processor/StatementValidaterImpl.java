@@ -1,4 +1,4 @@
-package com.customerstatement.rabobank.processor;
+package com.rabobank.statement.processor;
 
 import java.math.BigInteger;
 import java.util.Map;
@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import com.customerstatement.rabobank.domain.Record;
-import com.customerstatement.rabobank.domain.Records;
+import com.rabobank.domain.Record;
+import com.rabobank.domain.Records;
 
 /**
  * @author ravi
@@ -18,8 +18,9 @@ import com.customerstatement.rabobank.domain.Records;
 public class StatementValidaterImpl implements StatementValidater {
 
 	/*
-	 * (non-Javadoc)
-	 * This method used to validate the given statements are unique or not
+	 * (non-Javadoc) This method used to validate the given statements are unique or
+	 * not
+	 * 
 	 * @see
 	 * com.customerstatement.rabobank.processor.StatementValidater#validateUnique(
 	 * com.customerstatement.rabobank.domain.Records)
@@ -28,16 +29,16 @@ public class StatementValidaterImpl implements StatementValidater {
 
 		if (records != null) {
 			records.setIsUniqueStatement(true);
-			//Grouping by refrences no to get the duplicate statement
+			// Grouping by refrences no to get the duplicate statement
 			Map<BigInteger, Long> groupByRefrence = records.getRecord().parallelStream()
 					.collect(Collectors.groupingBy(Record::getReference, Collectors.counting()));
 
-			//update the duplicate in Records Object 
+			// update the duplicate in Records Object
 			groupByRefrence.entrySet().stream().filter(entrySet -> entrySet.getValue() > 1).forEach(duplicate -> {
 				records.setIsUniqueStatement(false);
 				records.getRecord().stream()
 						.filter(duplicateStatement -> duplicateStatement.getReference().equals(duplicate.getKey()))
-						.forEach(deplicateRecord -> deplicateRecord.setIsUnique(false));
+						.forEach(deplicateRecord -> deplicateRecord.setIsUniqueStatement(false));
 			});
 			return records.isUniqueStatement();
 		} else {
@@ -47,12 +48,12 @@ public class StatementValidaterImpl implements StatementValidater {
 	}
 
 	/*
-	 * (non-Javadoc)
-	 * Method used to validate the end balance
+	 * (non-Javadoc) Method used to validate the end balance
+	 * 
 	 * @see
 	 * com.customerstatement.rabobank.processor.StatementValidater#validateBalance(
-	 * com.customerstatement.rabobank.domain.Records)
-	 * Method will return true if all the end balance are correct, else false
+	 * com.customerstatement.rabobank.domain.Records) Method will return true if all
+	 * the end balance are correct, else false
 	 */
 	public Boolean validateBalance(Records records) {
 

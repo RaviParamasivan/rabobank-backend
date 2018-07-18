@@ -1,6 +1,6 @@
-package com.customerstatement.rabobank.processor;
+package com.rabobank.statement.processor;
 
-import com.customerstatement.rabobank.domain.Records;
+import com.rabobank.domain.Records;
 
 /**
  * @author ravi

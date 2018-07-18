@@ -1,4 +1,4 @@
-package com.customerstatement.rabobank.utils;
+package com.rabobank.utils;
 
 public class Constants {
 	public static final String FILE_TYPE_CSV = "csv";

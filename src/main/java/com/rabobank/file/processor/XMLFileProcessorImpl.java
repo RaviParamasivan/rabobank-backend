@@ -1,4 +1,4 @@
-package com.customerstatement.rabobank.processor;
+package com.rabobank.file.processor;
 
 import java.io.File;
 
@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.customerstatement.rabobank.App;
-import com.customerstatement.rabobank.domain.Records;
+import com.rabobank.App;
+import com.rabobank.domain.Records;
 
 /**
  * @author ravi
@@ -19,12 +19,16 @@ import com.customerstatement.rabobank.domain.Records;
  */
 @Component
 @Qualifier("xml")
-public class XMLFileReaderImpl implements FileReader {
+public class XMLFileProcessorImpl implements FileProcessor {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 
-	/* (non-Javadoc)
-	 * @see com.customerstatement.rabobank.processor.FileReader#readStatement(java.lang.String)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.customerstatement.rabobank.processor.FileReader#readStatement(java.lang.
+	 * String)
 	 */
 	public Records readStatement(String fileName) throws Exception {
 		Records records = null;

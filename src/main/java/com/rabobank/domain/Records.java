@@ -1,4 +1,4 @@
-package com.customerstatement.rabobank.domain;
+package com.rabobank.domain;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name = "records")
 public class Records {
+	
 
 	private List<Record> record;
 	private Boolean isValidEndBalance;

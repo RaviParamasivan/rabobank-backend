@@ -1,4 +1,4 @@
-package com.customerstatement.rabobank;
+package com.rabobank;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.customerstatement.rabobank.processor.StatementProcessor;
+import com.rabobank.statement.processor.StatementProcessor;
 
 /**
  * @author ravi
@@ -28,7 +28,10 @@ public class App implements CommandLineRunner {
 	@Autowired
 	public StatementProcessor statementProcessor;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc) This is init method for this application, Reads file from
+	 * resource and validate the statement
+	 * 
 	 * @see org.springframework.boot.CommandLineRunner#run(java.lang.String[])
 	 */
 	public void run(String... args) throws Exception {

@@ -1,4 +1,4 @@
-package com.customerstatement.rabobank.processor;
+package com.rabobank.statement.processor;
 
 /**
  * @author ravi

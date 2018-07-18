@@ -1,8 +1,8 @@
-package com.customerstatement.rabobank.processor;
+package com.rabobank.statement.processor;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -11,8 +11,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.customerstatement.rabobank.domain.Record;
-import com.customerstatement.rabobank.domain.Records;
+import com.rabobank.domain.Record;
+import com.rabobank.domain.Records;
 
 public class StatementValidaterTest {
 

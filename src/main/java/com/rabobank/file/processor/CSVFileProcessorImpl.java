@@ -1,7 +1,6 @@
-package com.customerstatement.rabobank.processor;
+package com.rabobank.file.processor;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.file.Files;
@@ -17,10 +16,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.customerstatement.rabobank.App;
-import com.customerstatement.rabobank.domain.Record;
-import com.customerstatement.rabobank.domain.Records;
-import com.customerstatement.rabobank.utils.Constants;
+import com.rabobank.App;
+import com.rabobank.domain.Record;
+import com.rabobank.domain.Records;
+import com.rabobank.utils.Constants;
 
 /**
  * @author ravi
@@ -28,7 +27,7 @@ import com.customerstatement.rabobank.utils.Constants;
  */
 @Component
 @Qualifier("csv")
-public class CSVFileReaderImpl implements FileReader {
+public class CSVFileProcessorImpl implements FileProcessor {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
 	private CSVParser csvParser;
@@ -36,7 +35,8 @@ public class CSVFileReaderImpl implements FileReader {
 	/**/
 
 	/*
-	 * (non-Javadoc)
+	 * (non-Javadoc) This method read the the cvs file from the resource and
+	 * generate Records for validations
 	 * 
 	 * @see
 	 * com.customerstatement.rabobank.processor.FileReader#readStatement(java.lang.
@@ -56,7 +56,6 @@ public class CSVFileReaderImpl implements FileReader {
 							.withIgnoreHeaderCase().withTrim());
 
 			for (CSVRecord csvRecord : csvParser) {
-				// For ignoring the CSV header
 				if (csvRecord.getRecordNumber() != 1) {
 					record = new Record();
 					record.setReference(getBigInteger(csvRecord.get(Constants.CSV_HEADER_NAME_REFERENCE)));
@@ -75,16 +74,6 @@ public class CSVFileReaderImpl implements FileReader {
 			throw new Exception("Exception While reading the statement from CSV, Please check the CSF file/Data");
 		}
 		return records;
-	}
-
-	/**
-	 * @param fileName
-	 * @return
-	 */
-	private String getFilePath(String fileName) {
-		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource(fileName).getFile());
-		return file.getPath();
 	}
 
 	/**

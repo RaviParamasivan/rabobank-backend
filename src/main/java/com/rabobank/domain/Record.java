@@ -1,4 +1,4 @@
-package com.customerstatement.rabobank.domain;
+package com.rabobank.domain;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -21,8 +21,7 @@ public class Record {
 	private BigDecimal endBalance;
 
 	private Boolean isValidEndBalance;
-	private Boolean isUnique;
-	private String errorDescription;
+	private Boolean isUniqueStatement;
 
 	@XmlAttribute(name = "reference")
 	public BigInteger getReference() {
@@ -81,28 +80,19 @@ public class Record {
 		this.isValidEndBalance = isValidEndBalance;
 	}
 
-	public Boolean getIsUnique() {
-		return isUnique;
+	public Boolean getIsUniqueStatement() {
+		return isUniqueStatement;
 	}
 
-	public void setIsUnique(Boolean isUnique) {
-		this.isUnique = isUnique;
-	}
-
-	public String getErrorDescription() {
-		return errorDescription;
-	}
-
-	public void setErrorDescription(String errorDescription) {
-		this.errorDescription = errorDescription;
+	public void setIsUniqueStatement(Boolean isUniqueStatement) {
+		this.isUniqueStatement = isUniqueStatement;
 	}
 
 	@Override
 	public String toString() {
 		return "Record [reference=" + reference + ", accountNumber=" + accountNumber + ", description=" + description
 				+ ", startBalance=" + startBalance + ", mutation=" + mutation + ", endBalance=" + endBalance
-				+ ", isValidEndBalance=" + isValidEndBalance + ", isUnique=" + isUnique + ", errorDescription="
-				+ errorDescription + "]";
+				+ ", isValidEndBalance=" + isValidEndBalance + ", isUniqueStatement=" + isUniqueStatement + "]";
 	}
 
 }
