@@ -17,6 +17,11 @@ import com.rabobank.domain.Records;
 @Component
 public class StatementValidaterImpl implements StatementValidater {
 
+
+	private Validater validater = ((startBalance, mutation, endBalance) -> !StringUtils.isEmpty(startBalance)
+			&& !StringUtils.isEmpty(mutation) && !StringUtils.isEmpty(endBalance)
+			&& startBalance.add(mutation).compareTo(endBalance) == 0);
+
 	/*
 	 * (non-Javadoc) This method used to validate the given statements are unique or
 	 * not
@@ -25,6 +30,7 @@ public class StatementValidaterImpl implements StatementValidater {
 	 * com.customerstatement.rabobank.processor.StatementValidater#validateUnique(
 	 * com.customerstatement.rabobank.domain.Records)
 	 */
+
 	public Boolean validateUnique(Records records) {
 
 		if (records != null) {
@@ -60,9 +66,7 @@ public class StatementValidaterImpl implements StatementValidater {
 		if (records != null) {
 			records.setIsValidEndBalance(true);
 			records.getRecord().stream().forEach(record -> {
-				if (!StringUtils.isEmpty(record.getStartBalance()) && !StringUtils.isEmpty(record.getMutation())
-						&& !StringUtils.isEmpty(record.getEndBalance())
-						&& record.getStartBalance().add(record.getMutation()).compareTo(record.getEndBalance()) == 0) {
+				if (validater.isValid(record.getStartBalance(), record.getMutation(), record.getEndBalance())) {
 					record.setIsValidEndBalance(true);
 				} else {
 					record.setIsValidEndBalance(false);

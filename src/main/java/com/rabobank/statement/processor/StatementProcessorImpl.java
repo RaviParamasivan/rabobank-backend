@@ -35,7 +35,9 @@ public class StatementProcessorImpl implements StatementProcessor {
 	private StatementValidater statementValidater;
 
 	/*
-	 * (non-Javadoc)
+	 * (non-Javadoc) This method read input and output file details from
+	 * application.property and read file, validate statement and generate the
+	 * report
 	 * 
 	 * @see
 	 * com.customerstatement.rabobank.processor.StatementProcessor#processDocument()

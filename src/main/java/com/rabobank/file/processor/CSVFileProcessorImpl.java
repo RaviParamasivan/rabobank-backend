@@ -47,6 +47,7 @@ public class CSVFileProcessorImpl implements FileProcessor {
 		Records records = new Records();
 		List<Record> recordList = new ArrayList<>();
 		Record record = null;
+		LOGGER.debug("CSV File read starting..");
 		try (BufferedReader reader = Files.newBufferedReader(Paths.get(getFilePath(fileName).getPath()))) {
 			csvParser = new CSVParser(reader,
 					CSVFormat.DEFAULT
@@ -68,6 +69,7 @@ public class CSVFileProcessorImpl implements FileProcessor {
 				}
 			}
 			records.setRecord(recordList);
+			LOGGER.debug("CSV File read Completed");
 
 		} catch (Exception e) {
 			LOGGER.error("Exception While reading the statement from CSV, Please check the CSF file/Data", e);
