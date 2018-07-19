@@ -9,19 +9,19 @@ import org.junit.Test;
 
 import com.rabobank.domain.Records;
 import com.rabobank.factory.FileReaderFactory;
-import com.rabobank.file.processor.CSVFileProcessorImpl;
-import com.rabobank.file.processor.FileProcessor;
-import com.rabobank.file.processor.XMLFileProcessorImpl;
+import com.rabobank.file.processor.CSVFileReaderImpl;
+import com.rabobank.file.processor.FileReader;
+import com.rabobank.file.processor.XMLFileReaderImpl;
 
 public class XMLFileReaderTest {
 
-	private FileProcessor fileReader;
+	private FileReader fileReader;
 
 	@Test
 	public void readStatementFromXML() throws Exception {
 		fileReader = FileReaderFactory.getFileReader("records.xml");
-		assertTrue(fileReader instanceof XMLFileProcessorImpl);
-		assertFalse(fileReader instanceof CSVFileProcessorImpl);
+		assertTrue(fileReader instanceof XMLFileReaderImpl);
+		assertFalse(fileReader instanceof CSVFileReaderImpl);
 
 		Records records = fileReader.readStatement("records.xml");
 		assertNotNull(records);

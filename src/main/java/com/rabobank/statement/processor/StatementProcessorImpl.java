@@ -1,7 +1,7 @@
 package com.rabobank.statement.processor;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ import com.rabobank.utils.Constants;
 @Component
 public class StatementProcessorImpl implements StatementProcessor {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(StatementProcessorImpl.class);
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	@Value("${statement.file.input.csv}")
 	private String csvFileName;
@@ -42,14 +42,14 @@ public class StatementProcessorImpl implements StatementProcessor {
 	 * @see
 	 * com.customerstatement.rabobank.processor.StatementProcessor#processDocument()
 	 */
-	public Boolean processDocument() {
+	public Boolean processStatement() {
 		Records records = null;
 		try {
-			String fileName = Constants.FILE_TYPE_CSV.equalsIgnoreCase(fileType) ? csvFileName : xmlFileName;
-			records = FileReaderFactory.getFileReader(fileName).readStatement(fileName);
-			statementValidater.validateBalance(records);
-			statementValidater.validateUnique(records);
-			FileReaderFactory.getFileReader(fileName).generateReport(records, outputFileName);
+			String filePath = Constants.FILE_TYPE_CSV.equalsIgnoreCase(fileType) ? csvFileName : xmlFileName;
+			records = FileReaderFactory.getFileReader(filePath).readStatement(filePath);
+			statementValidater.isValidRecordBalance(records);
+			statementValidater.isValidUniqueRecord(records);
+			FileReaderFactory.getFileReader(filePath).generateReport(records, outputFileName);
 		} catch (Exception e) {
 			LOGGER.error("Exception while processing the data", e);
 		}

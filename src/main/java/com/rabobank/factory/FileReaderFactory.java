@@ -1,26 +1,22 @@
 package com.rabobank.factory;
 
-import com.rabobank.file.processor.CSVFileProcessorImpl;
-import com.rabobank.file.processor.FileProcessor;
-import com.rabobank.file.processor.XMLFileProcessorImpl;
+import org.springframework.util.StringUtils;
+
+import com.rabobank.file.processor.CSVFileReaderImpl;
+import com.rabobank.file.processor.FileReader;
+import com.rabobank.file.processor.XMLFileReaderImpl;
 
 public class FileReaderFactory {
+	public static FileReader getFileReader(final String fileName) throws Exception {
 
-/*	@Autowired
-	@Qualifier("xml")
-	private static FileReader xmlFileReader;
-
-	@Autowired
-	@Qualifier("csv")
-	private static FileReader csvFileeader;*/
-
-	public static FileProcessor getFileReader(String fileNmae) throws Exception {
-		if (fileNmae.lastIndexOf(".xml") != -1) {
-			return new XMLFileProcessorImpl();
-		} else if (fileNmae.lastIndexOf(".csv") != -1) {
-			return new CSVFileProcessorImpl();
+		if (StringUtils.isEmpty(fileName)) {
+			throw new Exception("File Name is empty");
+		} else if (fileName.lastIndexOf(".xml") != -1) {
+			return new XMLFileReaderImpl();
+		} else if (fileName.lastIndexOf(".csv") != -1) {
+			return new CSVFileReaderImpl();
 		} else {
-			throw new Exception("File Name are empty/ Type not found");
+			throw new Exception("Invalid file type");
 		}
 	}
 }

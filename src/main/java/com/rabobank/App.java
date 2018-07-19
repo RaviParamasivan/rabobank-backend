@@ -1,7 +1,7 @@
 package com.rabobank;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,13 +10,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.rabobank.statement.processor.StatementProcessor;
 
 /**
- * @author ravi This is main program for reading the content from xml and csv
+ * @author ravi,  This is main program for reading the content from xml and csv
  *         file and validate the unique and end balance
  */
 @SpringBootApplication
 public class App implements CommandLineRunner {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	/**
 	 * @param args
@@ -36,7 +36,7 @@ public class App implements CommandLineRunner {
 	 */
 	public void run(String... args) throws Exception {
 		LOGGER.info("Statement Processing strats...");
-		statementProcessor.processDocument();
+		statementProcessor.processStatement();
 		LOGGER.info("Statement Processing End...");
 	}
 }

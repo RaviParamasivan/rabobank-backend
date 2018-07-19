@@ -6,19 +6,18 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import com.rabobank.App;
 import com.rabobank.domain.Records;
 
 /**
  * @author ravi
  *
  */
-public interface FileProcessor {
+public interface FileReader {
 
-	static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+	static final Logger LOGGER = LogManager.getLogger();
 
 	/**
 	 * @param fileName
@@ -31,12 +30,12 @@ public interface FileProcessor {
 	 * @param fileName
 	 * @return
 	 */
-	default File getFilePath(String fileName) {
+	default File getFile(final String fileName) {
 		ClassLoader classLoader = getClass().getClassLoader();
 		return new File(classLoader.getResource(fileName).getFile());
 	}
 
-	default Boolean generateReport(Records records, String outputFileName) throws Exception {
+	default Boolean generateReport(Records records, final String outputFileName) throws Exception {
 		Boolean isReportGenerated = false;
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outputFileName)))) {
 			writeToFile(writer, "******************** UNIQUE STATEMENTS VALIDATION ****************************");

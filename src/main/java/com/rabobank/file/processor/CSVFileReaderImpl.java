@@ -11,12 +11,11 @@ import java.util.List;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.rabobank.App;
 import com.rabobank.domain.Record;
 import com.rabobank.domain.Records;
 import com.rabobank.utils.Constants;
@@ -27,9 +26,9 @@ import com.rabobank.utils.Constants;
  */
 @Component
 @Qualifier("csv")
-public class CSVFileProcessorImpl implements FileProcessor {
+public class CSVFileReaderImpl implements FileReader {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+	private static final Logger LOGGER = LogManager.getLogger();
 	private CSVParser csvParser;
 
 	/**/
@@ -42,13 +41,13 @@ public class CSVFileProcessorImpl implements FileProcessor {
 	 * com.customerstatement.rabobank.processor.FileReader#readStatement(java.lang.
 	 * String)
 	 */
-	public Records readStatement(String fileName) throws Exception {
-
-		Records records = new Records();
-		List<Record> recordList = new ArrayList<>();
+	public Records readStatement(final String fileName) throws Exception {
+		Records records = null;
+		List<Record> recordList = null;
 		Record record = null;
 		LOGGER.debug("CSV File read starting..");
-		try (BufferedReader reader = Files.newBufferedReader(Paths.get(getFilePath(fileName).getPath()))) {
+		try (BufferedReader reader = Files.newBufferedReader(Paths.get(getFile(fileName).getPath()))) {
+			recordList = new ArrayList<>();
 			csvParser = new CSVParser(reader,
 					CSVFormat.DEFAULT
 							.withHeader(Constants.CSV_HEADER_NAME_REFERENCE, Constants.CSV_HEADER_NAME_ACCOUNTNO,
@@ -68,6 +67,7 @@ public class CSVFileProcessorImpl implements FileProcessor {
 					recordList.add(record);
 				}
 			}
+			records = new Records();
 			records.setRecord(recordList);
 			LOGGER.debug("CSV File read Completed");
 
@@ -82,7 +82,7 @@ public class CSVFileProcessorImpl implements FileProcessor {
 	 * @param value
 	 * @return
 	 */
-	private BigInteger getBigInteger(String value) {
+	private BigInteger getBigInteger(final String value) {
 		return new BigInteger(value);
 	}
 
@@ -90,7 +90,7 @@ public class CSVFileProcessorImpl implements FileProcessor {
 	 * @param value
 	 * @return
 	 */
-	private BigDecimal getBigDecimal(String value) {
+	private BigDecimal getBigDecimal(final String value) {
 		return new BigDecimal(value);
 	}
 }

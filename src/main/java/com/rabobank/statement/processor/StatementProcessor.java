@@ -9,6 +9,6 @@ public interface StatementProcessor {
 	/**
 	 * @return
 	 */
-	public Boolean processDocument();
+	public Boolean processStatement();
 
 }

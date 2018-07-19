@@ -21,42 +21,42 @@ public class StatementValidatorTest {
 	@Test
 	public void validateBalanceWithNull() {
 		statementValidater = new StatementValidatorImpl();
-		boolean result = statementValidater.validateBalance(null);
+		boolean result = statementValidater.isValidRecordBalance(null);
 		assertEquals(result, false);
 	}
 
 	@Test
 	public void validateBalanceInvalidData() {
 		statementValidater = new StatementValidatorImpl();
-		boolean result = statementValidater.validateBalance(getSampleStatements("invalid"));
+		boolean result = statementValidater.isValidRecordBalance(getSampleStatements("invalid"));
 		assertFalse(result);
 	}
 
 	@Test
 	public void validateBalanceValidData() {
 		statementValidater = new StatementValidatorImpl();
-		boolean result = statementValidater.validateBalance(getSampleStatements("valid"));
+		boolean result = statementValidater.isValidRecordBalance(getSampleStatements("valid"));
 		assertTrue(result);
 	}
 
 	@Test
 	public void validateUniqueDataNull() {
 		statementValidater = new StatementValidatorImpl();
-		boolean result = statementValidater.validateUnique(null);
+		boolean result = statementValidater.isValidUniqueRecord(null);
 		assertFalse(result);
 	}
 
 	@Test
 	public void validateUniqueData() {
 		statementValidater = new StatementValidatorImpl();
-		boolean result = statementValidater.validateUnique(getDuplicateStatements("valid"));
+		boolean result = statementValidater.isValidUniqueRecord(getDuplicateStatements("valid"));
 		assertTrue(result);
 	}
 
 	@Test
 	public void validateDupliacteData() {
 		statementValidater = new StatementValidatorImpl();
-		boolean result = statementValidater.validateUnique(getDuplicateStatements("invalid"));
+		boolean result = statementValidater.isValidUniqueRecord(getDuplicateStatements("invalid"));
 		assertFalse(result);
 	}
 

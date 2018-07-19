@@ -12,13 +12,13 @@ import com.rabobank.factory.FileReaderFactory;
 
 public class CSVFileReaderTest {
 
-	private FileProcessor fileReader;
+	private FileReader fileReader;
 
 	@Test
 	public void readStatementFromCSV() throws Exception {
 		fileReader = FileReaderFactory.getFileReader("records.csv");
-		assertFalse(fileReader instanceof XMLFileProcessorImpl);
-		assertTrue(fileReader instanceof CSVFileProcessorImpl);
+		assertFalse(fileReader instanceof XMLFileReaderImpl);
+		assertTrue(fileReader instanceof CSVFileReaderImpl);
 
 		Records records = fileReader.readStatement("records.csv");
 		assertNotNull(records);
