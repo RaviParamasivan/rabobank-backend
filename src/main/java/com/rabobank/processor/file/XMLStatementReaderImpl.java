@@ -1,4 +1,4 @@
-package com.rabobank.file.processor;
+package com.rabobank.processor.file;
 
 import java.io.File;
 
@@ -18,7 +18,7 @@ import com.rabobank.domain.Records;
  */
 @Component
 @Qualifier("xml")
-public class XMLFileReaderImpl implements FileReader {
+public class XMLStatementReaderImpl implements StatementReader {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 

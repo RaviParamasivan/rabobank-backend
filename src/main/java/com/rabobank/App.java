@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.rabobank.statement.processor.StatementProcessor;
+import com.rabobank.processor.statement.StatementProcessor;
 
 /**
  * @author ravi,  This is main program for reading the content from xml and csv

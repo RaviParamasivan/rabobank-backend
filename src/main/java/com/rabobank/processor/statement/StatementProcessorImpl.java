@@ -1,4 +1,4 @@
-package com.rabobank.statement.processor;
+package com.rabobank.processor.statement;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.rabobank.domain.Records;
 import com.rabobank.factory.FileReaderFactory;
+import com.rabobank.processor.file.StatementWriter;
 import com.rabobank.utils.Constants;
 
 /**
@@ -34,6 +35,9 @@ public class StatementProcessorImpl implements StatementProcessor {
 	@Autowired
 	private StatementValidator statementValidater;
 
+	@Autowired
+	private StatementWriter statementWriter;
+
 	/*
 	 * (non-Javadoc) This method read input and output file details from
 	 * application.property and read file, validate statement and generate the
@@ -49,7 +53,7 @@ public class StatementProcessorImpl implements StatementProcessor {
 			records = FileReaderFactory.getFileReader(filePath).readStatement(filePath);
 			statementValidater.isValidRecordBalance(records);
 			statementValidater.isValidUniqueRecord(records);
-			FileReaderFactory.getFileReader(filePath).generateReport(records, outputFileName);
+			statementWriter.writeStatement(records, outputFileName);
 		} catch (Exception e) {
 			LOGGER.error("Exception while processing the data", e);
 		}

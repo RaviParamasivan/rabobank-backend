@@ -1,4 +1,4 @@
-package com.rabobank.statement.processor;
+package com.rabobank.processor.statement;
 
 import java.math.BigInteger;
 import java.util.Map;
@@ -17,7 +17,7 @@ import com.rabobank.domain.Records;
 @Component
 public class StatementValidatorImpl implements StatementValidator {
 
-	private Validator validator = ((startBalance, mutation, endBalance) -> !StringUtils.isEmpty(startBalance)
+	private StatementEndBalanceValidator validator = ((startBalance, mutation, endBalance) -> !StringUtils.isEmpty(startBalance)
 			&& !StringUtils.isEmpty(mutation) && !StringUtils.isEmpty(endBalance)
 			&& startBalance.add(mutation).compareTo(endBalance) == 0);
 

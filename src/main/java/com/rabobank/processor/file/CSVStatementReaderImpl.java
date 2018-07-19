@@ -1,4 +1,4 @@
-package com.rabobank.file.processor;
+package com.rabobank.processor.file;
 
 import java.io.BufferedReader;
 import java.math.BigDecimal;
@@ -26,7 +26,7 @@ import com.rabobank.utils.Constants;
  */
 @Component
 @Qualifier("csv")
-public class CSVFileReaderImpl implements FileReader {
+public class CSVStatementReaderImpl implements StatementReader {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 	private CSVParser csvParser;

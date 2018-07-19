@@ -1,4 +1,4 @@
-package com.rabobank.statement.processor;
+package com.rabobank.processor.statement;
 
 import com.rabobank.domain.Records;
 
