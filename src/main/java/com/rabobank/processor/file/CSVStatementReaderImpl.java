@@ -62,7 +62,7 @@ public class CSVStatementReaderImpl implements StatementReader {
 			}
 			records = new Records();
 			records.setRecord(recordList);
-			LOGGER.debug("CSV File read Completed");
+			LOGGER.debug("CSV File read Completed..");
 
 		} catch (Exception e) {
 			LOGGER.error("Exception While reading the statement from CSV, Please check the CSV file/Data", e);

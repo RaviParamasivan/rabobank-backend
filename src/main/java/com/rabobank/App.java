@@ -36,12 +36,12 @@ public class App implements CommandLineRunner {
 	public StatementProcessor statementProcessor;
 
 	public void run(String... args) throws Exception {
-		LOGGER.info("Statement Processing Starting");
+		LOGGER.info("Statement Process Starting");
 		if (args.length == 2 && Files.exists(Paths.get(args[0]))) {
 			statementProcessor.processStatement(args[0], args[1]);
 		} else {
 			throw new RuntimeException("Invalid arguments/files, Please check your input arguments");
 		}
-		LOGGER.info("Statement Processing Ending");
+		LOGGER.info("Statement Process Ending");
 	}
 }

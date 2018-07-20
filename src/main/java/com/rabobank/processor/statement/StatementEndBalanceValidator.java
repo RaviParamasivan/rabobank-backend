@@ -4,5 +4,5 @@ import java.math.BigDecimal;
 
 @FunctionalInterface
 public interface StatementEndBalanceValidator {
-	public Boolean isValid(BigDecimal startBalance, BigDecimal mutation, BigDecimal endBalance);
+	public boolean isValid(BigDecimal startBalance, BigDecimal mutation, BigDecimal endBalance);
 }

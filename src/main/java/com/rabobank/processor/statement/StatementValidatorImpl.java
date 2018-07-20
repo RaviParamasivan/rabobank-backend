@@ -30,7 +30,7 @@ public class StatementValidatorImpl implements StatementValidator {
 	 * com.customerstatement.rabobank.domain.Records)
 	 */
 
-	public Boolean isValidUniqueRecord(Records records) {
+	public boolean isValidUniqueRecord(Records records) {
 
 		if (records != null) {
 			records.setIsUniqueStatement(true);
@@ -60,7 +60,7 @@ public class StatementValidatorImpl implements StatementValidator {
 	 * com.customerstatement.rabobank.domain.Records) Method will return true if all
 	 * the end balance are correct, else false
 	 */
-	public Boolean isValidRecordBalance(Records records) {
+	public boolean isValidRecordBalance(Records records) {
 
 		if (records != null) {
 			records.setIsValidEndBalance(true);

@@ -25,7 +25,7 @@ public class StatementWriterImpl implements StatementWriter {
 	 * @see com.rabobank.processor.file.StatementWriter#writeStatement(com.rabobank.domain.Records, java.lang.String)
 	 * This method write the statement validation details to the output file
 	 */
-	public Boolean writeStatement(final Records records, final String outputFilePath) {
+	public boolean writeStatement(final Records records, final String outputFilePath) {
 		Boolean isReportGenerated = false;
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outputFilePath)))) {
 			writeToFile(writer, "******************** UNIQUE STATEMENTS VALIDATION ****************************");
@@ -69,7 +69,7 @@ public class StatementWriterImpl implements StatementWriter {
 			writer.newLine();
 			writer.flush();
 		} catch (IOException e) {
-			LOGGER.error("Exception occured while writing the file", e);
+			LOGGER.error("Exception occured while writing the report", e);
 		}
 	}
 }

@@ -12,12 +12,12 @@ public interface StatementValidator {
 	 * @param records
 	 * @return
 	 */
-	public Boolean isValidRecordBalance(Records records);
+	public boolean isValidRecordBalance(Records records);
 
 	/**
 	 * @param records
 	 * @return
 	 */
-	public Boolean isValidUniqueRecord(Records records);
+	public boolean isValidUniqueRecord(Records records);
 
 }

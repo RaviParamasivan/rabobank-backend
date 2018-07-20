@@ -1,8 +1,5 @@
 package com.rabobank.processor.file;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.rabobank.domain.Records;
 
 /**
@@ -10,8 +7,6 @@ import com.rabobank.domain.Records;
  *
  */
 public interface StatementReader {
-
-	static final Logger LOGGER = LogManager.getLogger();
 
 	/**
 	 * @param fileName

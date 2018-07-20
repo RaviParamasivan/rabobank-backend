@@ -15,7 +15,7 @@ public class FileReaderFactory {
 	 * @return
 	 * @throws Exception
 	 */
-	public static StatementReader getFileReader(final String inputFilePath) throws Exception {
+	public static StatementReader getFileReader(final String inputFilePath) throws RuntimeException {
 
 		FileType fileType = FileType.getFileType(inputFilePath);
 		switch (fileType) {
@@ -24,7 +24,7 @@ public class FileReaderFactory {
 		case XML:
 			return new XMLStatementReaderImpl();
 		default:
-			throw new Exception("Invalid file type, Please check your input argument");
+			throw new RuntimeException("Invalid file type, Please check your input arguments");
 		}
 	}
 }
