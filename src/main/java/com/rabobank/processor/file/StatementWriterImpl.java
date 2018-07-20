@@ -63,7 +63,7 @@ public class StatementWriterImpl implements StatementWriter {
 	}
 
 	private void writeToFile(BufferedWriter writer, String statement) {
-		LOGGER.error(statement);
+		LOGGER.info(statement);
 		try {
 			writer.write(statement);
 			writer.newLine();
