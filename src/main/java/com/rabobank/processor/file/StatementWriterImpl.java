@@ -8,37 +8,47 @@ import java.io.IOException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import com.rabobank.domain.Records;
 
+/**
+ * @author ravi
+ *
+ */
+@Component
 public class StatementWriterImpl implements StatementWriter {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	public Boolean writeStatement(final Records records, final String outputFileName) {
+	/* (non-Javadoc)
+	 * @see com.rabobank.processor.file.StatementWriter#writeStatement(com.rabobank.domain.Records, java.lang.String)
+	 * This method write the statement validation details to the output file
+	 */
+	public Boolean writeStatement(final Records records, final String outputFilePath) {
 		Boolean isReportGenerated = false;
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outputFileName)))) {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outputFilePath)))) {
 			writeToFile(writer, "******************** UNIQUE STATEMENTS VALIDATION ****************************");
 			if (!records.isUniqueStatement()) {
 				records.getRecord().parallelStream()
 						.filter(record -> record.getIsUniqueStatement() != null && !record.getIsUniqueStatement())
 						.forEach(invalidRecord -> {
-							writeToFile(writer, "Duplicate Refrence :" + invalidRecord.getReference()
+							writeToFile(writer, "Duplicate Reference :" + invalidRecord.getReference()
 									+ " > AccountNumber :" + invalidRecord.getAccountNumber());
 						});
 			} else {
-				writeToFile(writer, "No Duplicate Statement Found");
+				writeToFile(writer, "No Duplicate Statement found");
 			}
 			writeToFile(writer, "********************* END BALANCE VALIDATION *********************************");
 			if (!records.isValidEndBalance()) {
 				records.getRecord().parallelStream()
 						.filter(record -> record.getIsValidEndBalance() != null && !record.getIsValidEndBalance())
 						.forEach(invalidRecord -> {
-							writeToFile(writer, "Invalid End Balance Refrence :" + invalidRecord.getReference()
+							writeToFile(writer, "Invalid End Balance Reference :" + invalidRecord.getReference()
 									+ " > AccountNumber :" + invalidRecord.getAccountNumber());
 						});
 			} else {
-				writeToFile(writer, "End Balance Looks Good");
+				writeToFile(writer, "End Balance looks good for all the statements");
 			}
 			writeToFile(writer, "******************************************************************************");
 			writer.close();

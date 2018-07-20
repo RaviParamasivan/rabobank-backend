@@ -7,8 +7,10 @@ package com.rabobank.processor.statement;
 public interface StatementProcessor {
 
 	/**
+	 * @param outputFilePath
+	 * @param inputFilePath
 	 * @return
 	 */
-	public Boolean processStatement();
+	public boolean processStatement(String inputFilePath, String outputFilePath);
 
 }

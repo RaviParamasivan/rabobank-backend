@@ -1,8 +1,7 @@
 package com.rabobank.processor.file;
 
 /**
- * @author ravi
- * This class provide the csv header for CSV Statement reader
+ * @author ravi - This class provide the csv header for CSV Statement reader
  */
 public enum CSVColumn {
 	REFERENCE("Reference"), ACCOUNT_NO("AccountNumber"), DESCRIPTION("Description"), STARTBALANCE(

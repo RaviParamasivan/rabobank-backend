@@ -4,17 +4,27 @@ import com.rabobank.processor.file.CSVStatementReaderImpl;
 import com.rabobank.processor.file.StatementReader;
 import com.rabobank.processor.file.XMLStatementReaderImpl;
 
+/**
+ * @author ravi
+ *
+ */
 public class FileReaderFactory {
-	public static StatementReader getFileReader(final String fileName) throws Exception {
 
-		FileType fileType = FileType.CSV;
+	/**
+	 * @param inputFilePath
+	 * @return
+	 * @throws Exception
+	 */
+	public static StatementReader getFileReader(final String inputFilePath) throws Exception {
+
+		FileType fileType = FileType.getFileType(inputFilePath);
 		switch (fileType) {
 		case CSV:
 			return new CSVStatementReaderImpl();
 		case XML:
 			return new XMLStatementReaderImpl();
 		default:
-			throw new Exception("Invalid file type");
+			throw new Exception("Invalid file type, Please check your input argument");
 		}
 	}
 }

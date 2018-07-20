@@ -7,7 +7,6 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.rabobank.domain.Records;
@@ -17,16 +16,16 @@ import com.rabobank.domain.Records;
  *
  */
 @Component
-@Qualifier("xml")
+
 public class XMLStatementReaderImpl implements StatementReader {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	public Records readStatement(final String fileName) throws Exception {
+	public Records readStatement(final String inputFilePath) throws Exception {
 		Records records = null;
 		try {
 			LOGGER.debug("Start Reading the xml file from resource directiory");
-			File file = getFile(fileName);
+			File file = new File(inputFilePath);
 			JAXBContext jaxbContext = JAXBContext.newInstance(Records.class);
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			records = (Records) unmarshaller.unmarshal(file);

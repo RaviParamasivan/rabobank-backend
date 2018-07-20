@@ -1,7 +1,5 @@
 package com.rabobank.processor.file;
 
-import java.io.File;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -20,15 +18,6 @@ public interface StatementReader {
 	 * @return
 	 * @throws Exception
 	 */
-	public Records readStatement(final String fileName) throws Exception;
-
-	/**
-	 * @param fileName
-	 * @return
-	 */
-	default File getFile(final String fileName) {
-		ClassLoader classLoader = getClass().getClassLoader();
-		return new File(classLoader.getResource(fileName).getFile());
-	}
+	public Records readStatement(String fileName) throws Exception;
 
 }
