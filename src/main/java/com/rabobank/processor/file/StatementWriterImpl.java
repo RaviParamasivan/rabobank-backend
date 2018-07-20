@@ -15,7 +15,7 @@ public class StatementWriterImpl implements StatementWriter {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	public Boolean writeStatement(Records records, final String outputFileName) {
+	public Boolean writeStatement(final Records records, final String outputFileName) {
 		Boolean isReportGenerated = false;
 		try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outputFileName)))) {
 			writeToFile(writer, "******************** UNIQUE STATEMENTS VALIDATION ****************************");

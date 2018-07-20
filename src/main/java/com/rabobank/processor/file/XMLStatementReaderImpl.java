@@ -22,15 +22,7 @@ public class XMLStatementReaderImpl implements StatementReader {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	/*
-	 * (non-Javadoc) This method read the xml file from resource directory and
-	 * converts into Records pojo
-	 * 
-	 * @see
-	 * com.customerstatement.rabobank.processor.FileReader#readStatement(java.lang.
-	 * String)
-	 */
-	public Records readStatement(String fileName) throws Exception {
+	public Records readStatement(final String fileName) throws Exception {
 		Records records = null;
 		try {
 			LOGGER.debug("Start Reading the xml file from resource directiory");

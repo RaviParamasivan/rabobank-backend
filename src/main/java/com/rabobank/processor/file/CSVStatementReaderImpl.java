@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 
 import com.rabobank.domain.Record;
 import com.rabobank.domain.Records;
-import com.rabobank.utils.Constants;
 
 /**
  * @author ravi
@@ -31,39 +30,36 @@ public class CSVStatementReaderImpl implements StatementReader {
 	private static final Logger LOGGER = LogManager.getLogger();
 	private CSVParser csvParser;
 
-	/**/
-
 	/*
-	 * (non-Javadoc) This method read the the cvs file from the resource and
-	 * generate Records for validations
+	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.customerstatement.rabobank.processor.FileReader#readStatement(java.lang.
-	 * String)
+	 * com.rabobank.processor.file.StatementReader#readStatement(java.lang.String)
+	 * This Method used to read the statement from the given csv files from command
+	 * line and generate the Records object
 	 */
 	public Records readStatement(final String fileName) throws Exception {
 		Records records = null;
-		List<Record> recordList = null;
+
 		Record record = null;
 		LOGGER.debug("CSV File read starting..");
 		try (BufferedReader reader = Files.newBufferedReader(Paths.get(getFile(fileName).getPath()))) {
-			recordList = new ArrayList<>();
 			csvParser = new CSVParser(reader,
 					CSVFormat.DEFAULT
-							.withHeader(Constants.CSV_HEADER_NAME_REFERENCE, Constants.CSV_HEADER_NAME_ACCOUNTNO,
-									Constants.CSV_HEADER_NAME_DESCRIPTION, Constants.CSV_HEADER_NAME_STARTBALANCE,
-									Constants.CSV_HEADER_NAME_MUTATION, Constants.CSV_HEADER_NAME_ENDBALANCE)
+							.withHeader(CSVColumn.REFERENCE.getName(), CSVColumn.ACCOUNT_NO.getName(),
+									CSVColumn.DESCRIPTION.getName(), CSVColumn.STARTBALANCE.getName(),
+									CSVColumn.MUTATION.getName(), CSVColumn.END_BALANCE.getName())
 							.withIgnoreHeaderCase().withTrim());
-
+			List<Record> recordList = new ArrayList<>();
 			for (CSVRecord csvRecord : csvParser) {
 				if (csvRecord.getRecordNumber() != 1) {
 					record = new Record();
-					record.setReference(getBigInteger(csvRecord.get(Constants.CSV_HEADER_NAME_REFERENCE)));
-					record.setAccountNumber(csvRecord.get(Constants.CSV_HEADER_NAME_ACCOUNTNO));
-					record.setDescription(csvRecord.get(Constants.CSV_HEADER_NAME_DESCRIPTION));
-					record.setStartBalance(getBigDecimal(csvRecord.get(Constants.CSV_HEADER_NAME_STARTBALANCE)));
-					record.setMutation(getBigDecimal(csvRecord.get(Constants.CSV_HEADER_NAME_MUTATION)));
-					record.setEndBalance(getBigDecimal(csvRecord.get(Constants.CSV_HEADER_NAME_ENDBALANCE)));
+					record.setReference(getBigInteger(csvRecord.get(CSVColumn.REFERENCE.getName())));
+					record.setAccountNumber(csvRecord.get(CSVColumn.ACCOUNT_NO.getName()));
+					record.setDescription(csvRecord.get(CSVColumn.DESCRIPTION.getName()));
+					record.setStartBalance(getBigDecimal(csvRecord.get(CSVColumn.STARTBALANCE.getName())));
+					record.setMutation(getBigDecimal(csvRecord.get(CSVColumn.MUTATION.getName())));
+					record.setEndBalance(getBigDecimal(csvRecord.get(CSVColumn.END_BALANCE.getName())));
 					recordList.add(record);
 				}
 			}

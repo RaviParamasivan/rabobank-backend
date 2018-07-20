@@ -20,7 +20,7 @@ public interface StatementReader {
 	 * @return
 	 * @throws Exception
 	 */
-	public Records readStatement(String fileName) throws Exception;
+	public Records readStatement(final String fileName) throws Exception;
 
 	/**
 	 * @param fileName
