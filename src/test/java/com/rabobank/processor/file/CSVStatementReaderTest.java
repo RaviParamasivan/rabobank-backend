@@ -1,4 +1,4 @@
-package com.rabobank.rocessor.file;
+package com.rabobank.processor.file;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;

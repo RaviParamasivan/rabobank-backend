@@ -17,7 +17,7 @@ import com.rabobank.domain.Records;
 @Component
 public class StatementValidatorImpl implements StatementValidator {
 
-	private StatementEndBalanceValidator validator = ((startBalance, mutation, endBalance) -> !StringUtils.isEmpty(startBalance)
+	private StatementEndBalanceValidator statementEndBalanceValidator = ((startBalance, mutation, endBalance) -> !StringUtils.isEmpty(startBalance)
 			&& !StringUtils.isEmpty(mutation) && !StringUtils.isEmpty(endBalance)
 			&& startBalance.add(mutation).compareTo(endBalance) == 0);
 
@@ -34,7 +34,7 @@ public class StatementValidatorImpl implements StatementValidator {
 
 		if (records != null) {
 			records.setIsUniqueStatement(true);
-			// Grouping by refrences no to get the duplicate statement
+			// Grouping by reference no to get the duplicate statement
 			Map<BigInteger, Long> groupByReference = records.getRecord().parallelStream()
 					.collect(Collectors.groupingBy(Record::getReference, Collectors.counting()));
 
@@ -65,7 +65,7 @@ public class StatementValidatorImpl implements StatementValidator {
 		if (records != null) {
 			records.setIsValidEndBalance(true);
 			records.getRecord().stream().forEach(record -> {
-				if (validator.isValid(record.getStartBalance(), record.getMutation(), record.getEndBalance())) {
+				if (statementEndBalanceValidator.isValid(record.getStartBalance(), record.getMutation(), record.getEndBalance())) {
 					record.setIsValidEndBalance(true);
 				} else {
 					record.setIsValidEndBalance(false);
