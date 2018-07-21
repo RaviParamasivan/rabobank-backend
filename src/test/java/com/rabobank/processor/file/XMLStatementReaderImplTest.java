@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+
 import org.junit.Test;
 
 import com.rabobank.domain.Records;
@@ -23,9 +25,15 @@ public class XMLStatementReaderImplTest {
 		assertTrue(fileReader instanceof XMLStatementReaderImpl);
 		assertFalse(fileReader instanceof CSVStatementReaderImpl);
 
-		Records records = fileReader.readStatement("records.xml");
+		Records records = fileReader.readStatement(getCSVFilePath());
 		assertNotNull(records);
 		assertNotEquals(records.getRecord().size(), 0);
+	}
+
+	private String getCSVFilePath() {
+		ClassLoader classLoader = getClass().getClassLoader();
+		File file = new File(classLoader.getResource("records.xml").getFile());
+		return file.getAbsolutePath();
 	}
 
 }
