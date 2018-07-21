@@ -39,7 +39,7 @@ public class StatementWriterImpl implements StatementWriter {
 		} catch (FileNotFoundException e) {
 			LOGGER.error("File Not Found while generating the report", e);
 		} catch (Exception e) {
-			LOGGER.error("Exception occured while generating the report", e);
+			LOGGER.error("Exception occured while generating the report, Please check your input arguments 2. ", e);
 		}
 		return isReportGenerated;
 
