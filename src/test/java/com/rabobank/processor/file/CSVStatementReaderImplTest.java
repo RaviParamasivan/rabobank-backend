@@ -10,7 +10,6 @@ import java.io.File;
 import org.junit.Test;
 
 import com.rabobank.domain.Records;
-import com.rabobank.factory.FileReaderFactory;
 
 public class CSVStatementReaderImplTest {
 
@@ -18,13 +17,12 @@ public class CSVStatementReaderImplTest {
 
 	@Test
 	public void readStatementFromCSV() throws Exception {
-		fileReader = FileReaderFactory.getFileReader("records.csv");
+		fileReader = StatementReader.getFileReader("records.csv");
 		assertFalse(fileReader instanceof XMLStatementReaderImpl);
 		assertTrue(fileReader instanceof CSVStatementReaderImpl);
 		Records records = fileReader.readStatement(getCSVFilePath());
 		assertNotNull(records);
 		assertNotEquals(records.getRecord().size(), 0);
-
 	}
 
 	private String getCSVFilePath() {

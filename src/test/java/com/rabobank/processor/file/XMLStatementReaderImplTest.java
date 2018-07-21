@@ -10,10 +10,6 @@ import java.io.File;
 import org.junit.Test;
 
 import com.rabobank.domain.Records;
-import com.rabobank.factory.FileReaderFactory;
-import com.rabobank.processor.file.CSVStatementReaderImpl;
-import com.rabobank.processor.file.StatementReader;
-import com.rabobank.processor.file.XMLStatementReaderImpl;
 
 public class XMLStatementReaderImplTest {
 
@@ -21,7 +17,7 @@ public class XMLStatementReaderImplTest {
 
 	@Test
 	public void readStatementFromXML() throws Exception {
-		fileReader = FileReaderFactory.getFileReader("records.xml");
+		fileReader = StatementReader.getFileReader("records.xml");
 		assertTrue(fileReader instanceof XMLStatementReaderImpl);
 		assertFalse(fileReader instanceof CSVStatementReaderImpl);
 

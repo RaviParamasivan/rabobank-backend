@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.rabobank.domain.Records;
-import com.rabobank.factory.FileReaderFactory;
+import com.rabobank.processor.file.StatementReader;
 import com.rabobank.processor.file.StatementWriter;
 
 /**
@@ -36,7 +36,7 @@ public class StatementProcessorImpl implements StatementProcessor {
 	public boolean processStatement(final String inputFilePath, final String outputFilePath) {
 		Records records = null;
 		try {
-			records = FileReaderFactory.getFileReader(inputFilePath).readStatement(inputFilePath);
+			records = StatementReader.getFileReader(inputFilePath).readStatement(inputFilePath);
 			statementValidater.isValidRecordBalance(records);
 			statementValidater.isValidUniqueRecord(records);
 			statementWriter.writeStatement(records, outputFilePath);
