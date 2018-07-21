@@ -37,7 +37,6 @@ public class CSVStatementReaderImpl implements StatementReader {
 	 */
 	public Records readStatement(final String inputFilePath) throws Exception {
 		Records records = null;
-
 		Record record = null;
 		LOGGER.debug("CSV File read starting..");
 		try (BufferedReader reader = new BufferedReader(new FileReader(inputFilePath))) {
