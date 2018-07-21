@@ -36,7 +36,7 @@ public class StatementProcessorImpl implements StatementProcessor {
 	public boolean processStatement(final String inputFilePath, final String outputFilePath) {
 		Records records = null;
 		try {
-			records = StatementReader.getFileReader(inputFilePath).readStatement(inputFilePath);
+			records = StatementReader.getFileReader(inputFilePath.toLowerCase()).readStatement(inputFilePath);
 			statementValidater.isValidRecordBalance(records);
 			statementValidater.isValidUniqueRecord(records);
 			statementWriter.writeStatement(records, outputFilePath);
