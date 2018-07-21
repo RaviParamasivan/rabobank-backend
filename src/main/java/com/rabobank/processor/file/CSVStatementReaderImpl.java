@@ -25,8 +25,7 @@ import com.rabobank.domain.Records;
 public class CSVStatementReaderImpl implements StatementReader {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	private CSVParser csvParser;
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -36,6 +35,7 @@ public class CSVStatementReaderImpl implements StatementReader {
 	 * line and generate the Records object
 	 */
 	public Records readStatement(final String inputFilePath) throws Exception {
+		CSVParser csvParser;
 		Records records = null;
 		Record record = null;
 		LOGGER.debug("CSV File read starting..");
@@ -56,9 +56,11 @@ public class CSVStatementReaderImpl implements StatementReader {
 				record.setMutation(getBigDecimal(csvRecord.get(CSVColumn.MUTATION.getName())));
 				record.setEndBalance(getBigDecimal(csvRecord.get(CSVColumn.END_BALANCE.getName())));
 				recordList.add(record);
+				
 			}
 			records = new Records();
 			records.setRecord(recordList);
+			csvParser.close();
 			LOGGER.debug("CSV File read Completed..");
 
 		} catch (Exception e) {

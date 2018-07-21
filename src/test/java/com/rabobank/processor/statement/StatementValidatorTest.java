@@ -24,7 +24,7 @@ public class StatementValidatorTest {
 	public void validateBalanceWithNull() {
 		statementValidater = new StatementValidatorImpl();
 		boolean result = statementValidater.isValidRecordBalance(null);
-		assertEquals(result, false);
+		assertEquals(false, result);
 	}
 
 	@Test

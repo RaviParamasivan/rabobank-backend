@@ -10,12 +10,16 @@ import com.rabobank.processor.file.XMLStatementReaderImpl;
  */
 public class FileReaderFactory {
 
+	private FileReaderFactory() {
+		super();
+	}
+	
 	/**
 	 * @param inputFilePath
 	 * @return
 	 * @throws Exception
 	 */
-	public static StatementReader getFileReader(final String inputFilePath) throws RuntimeException {
+	public static StatementReader getFileReader(final String inputFilePath) throws Exception {
 
 		FileType fileType = FileType.getFileType(inputFilePath);
 		switch (fileType) {
@@ -24,7 +28,7 @@ public class FileReaderFactory {
 		case XML:
 			return new XMLStatementReaderImpl();
 		default:
-			throw new RuntimeException("Invalid file type, Please check your input arguments");
+			throw new Exception("Invalid file type, Please check your input arguments");
 		}
 	}
 }
