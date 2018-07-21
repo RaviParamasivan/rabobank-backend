@@ -44,21 +44,19 @@ public class CSVStatementReaderImpl implements StatementReader {
 			csvParser = new CSVParser(reader,
 					CSVFormat.DEFAULT
 							.withHeader(CSVColumn.REFERENCE.getName(), CSVColumn.ACCOUNT_NO.getName(),
-									CSVColumn.DESCRIPTION.getName(), CSVColumn.STARTBALANCE.getName(),
+									CSVColumn.DESCRIPTION.getName(), CSVColumn.START_BALANCE.getName(),
 									CSVColumn.MUTATION.getName(), CSVColumn.END_BALANCE.getName())
-							.withIgnoreHeaderCase().withTrim());
+							.withIgnoreHeaderCase().withTrim().withSkipHeaderRecord());
 			List<Record> recordList = new ArrayList<>();
 			for (CSVRecord csvRecord : csvParser) {
-				if (csvRecord.getRecordNumber() != 1) {
-					record = new Record();
-					record.setReference(getBigInteger(csvRecord.get(CSVColumn.REFERENCE.getName())));
-					record.setAccountNumber(csvRecord.get(CSVColumn.ACCOUNT_NO.getName()));
-					record.setDescription(csvRecord.get(CSVColumn.DESCRIPTION.getName()));
-					record.setStartBalance(getBigDecimal(csvRecord.get(CSVColumn.STARTBALANCE.getName())));
-					record.setMutation(getBigDecimal(csvRecord.get(CSVColumn.MUTATION.getName())));
-					record.setEndBalance(getBigDecimal(csvRecord.get(CSVColumn.END_BALANCE.getName())));
-					recordList.add(record);
-				}
+				record = new Record();
+				record.setReference(getBigInteger(csvRecord.get(CSVColumn.REFERENCE.getName())));
+				record.setAccountNumber(csvRecord.get(CSVColumn.ACCOUNT_NO.getName()));
+				record.setDescription(csvRecord.get(CSVColumn.DESCRIPTION.getName()));
+				record.setStartBalance(getBigDecimal(csvRecord.get(CSVColumn.START_BALANCE.getName())));
+				record.setMutation(getBigDecimal(csvRecord.get(CSVColumn.MUTATION.getName())));
+				record.setEndBalance(getBigDecimal(csvRecord.get(CSVColumn.END_BALANCE.getName())));
+				recordList.add(record);
 			}
 			records = new Records();
 			records.setRecord(recordList);
