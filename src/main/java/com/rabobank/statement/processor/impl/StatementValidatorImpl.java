@@ -44,7 +44,8 @@ public class StatementValidatorImpl implements StatementValidator {
 						.filter(duplicateStatement -> duplicateStatement.getReference().equals(duplicate.getKey()))
 						.forEach(deplicateRecord -> deplicateRecord.setIsUniqueStatement(false));
 			});
-			return !groupByReference.isEmpty();
+			return !groupByReference.entrySet().stream().filter(entrySet -> entrySet.getValue() > 1).findAny()
+					.isPresent();
 		} else {
 			return false;
 		}
