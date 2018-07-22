@@ -1,4 +1,4 @@
-package com.rabobank.processor.file;
+package com.rabobank.statement.reader.impl;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -10,16 +10,20 @@ import java.io.File;
 import org.junit.Test;
 
 import com.rabobank.domain.Records;
+import com.rabobank.statement.reader.StatementReader;
+import com.rabobank.statement.reader.impl.CSVStatementReaderImpl;
+import com.rabobank.statement.reader.impl.XMLStatementReaderImpl;
 
-public class CSVStatementReaderImplTest {
+public class XMLStatementReaderImplTest {
 
 	private StatementReader fileReader;
 
 	@Test
-	public void readStatementFromCSV() throws Exception {
-		fileReader = StatementReader.getFileReader("records.csv");
-		assertFalse(fileReader instanceof XMLStatementReaderImpl);
-		assertTrue(fileReader instanceof CSVStatementReaderImpl);
+	public void readStatementFromXML() throws Exception {
+		fileReader = StatementReader.getFileReader("records.xml");
+		assertTrue(fileReader instanceof XMLStatementReaderImpl);
+		assertFalse(fileReader instanceof CSVStatementReaderImpl);
+
 		Records records = fileReader.readStatement(getCSVFilePath());
 		assertNotNull(records);
 		assertNotEquals(records.getRecord().size(), 0);
@@ -27,7 +31,7 @@ public class CSVStatementReaderImplTest {
 
 	private String getCSVFilePath() {
 		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource("records.csv").getFile());
+		File file = new File(classLoader.getResource("records.xml").getFile());
 		return file.getAbsolutePath();
 	}
 

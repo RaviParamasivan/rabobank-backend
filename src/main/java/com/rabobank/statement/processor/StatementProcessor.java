@@ -1,4 +1,4 @@
-package com.rabobank.processor.statement;
+package com.rabobank.statement.processor;
 
 /**
  * @author ravi
@@ -11,6 +11,6 @@ public interface StatementProcessor {
 	 * @param inputFilePath
 	 * @return
 	 */
-	public boolean processStatement(String inputFilePath, String outputFilePath);
+	void processStatement(String inputFilePath, String outputFilePath);
 
 }

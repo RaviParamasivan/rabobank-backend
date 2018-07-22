@@ -1,4 +1,4 @@
-package com.rabobank.processor.statement;
+package com.rabobank.statement.processor;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -13,8 +13,8 @@ import org.junit.Test;
 
 import com.rabobank.domain.Record;
 import com.rabobank.domain.Records;
-import com.rabobank.processor.statement.StatementValidator;
-import com.rabobank.processor.statement.StatementValidatorImpl;
+import com.rabobank.statement.processor.StatementValidator;
+import com.rabobank.statement.processor.impl.StatementValidatorImpl;
 
 public class StatementValidatorTest {
 

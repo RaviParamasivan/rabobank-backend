@@ -1,4 +1,4 @@
-package com.rabobank.processor.statement;
+package com.rabobank.statement.processor;
 
 import com.rabobank.domain.Records;
 
@@ -12,12 +12,12 @@ public interface StatementValidator {
 	 * @param records
 	 * @return
 	 */
-	public boolean isValidRecordBalance(Records records);
+	boolean isValidRecordBalance(Records records);
 
 	/**
 	 * @param records
 	 * @return
 	 */
-	public boolean isValidUniqueRecord(Records records);
+	boolean isValidUniqueRecord(Records records);
 
 }

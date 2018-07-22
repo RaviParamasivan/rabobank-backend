@@ -1,4 +1,4 @@
-package com.rabobank.processor.statement;
+package com.rabobank.statement.processor.impl;
 
 import java.math.BigInteger;
 import java.util.Map;
@@ -9,6 +9,8 @@ import org.springframework.util.StringUtils;
 
 import com.rabobank.domain.Record;
 import com.rabobank.domain.Records;
+import com.rabobank.statement.processor.StatementEndBalanceValidator;
+import com.rabobank.statement.processor.StatementValidator;
 
 /**
  * @author ravi
@@ -30,7 +32,7 @@ public class StatementValidatorImpl implements StatementValidator {
 	 * com.customerstatement.rabobank.domain.Records)
 	 */
 
-	public boolean isValidUniqueRecord(Records records) {
+	public boolean isValidUniqueRecord(final Records records) {
 
 		if (records != null) {
 			records.setIsUniqueStatement(true);
@@ -60,7 +62,7 @@ public class StatementValidatorImpl implements StatementValidator {
 	 * com.customerstatement.rabobank.domain.Records) Method will return true if all
 	 * the end balance are correct, else false
 	 */
-	public boolean isValidRecordBalance(Records records) {
+	public boolean isValidRecordBalance(final Records records) {
 
 		if (records != null) {
 			records.setIsValidEndBalance(true);

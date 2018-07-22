@@ -11,7 +11,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.util.StringUtils;
 
-import com.rabobank.processor.statement.StatementProcessor;
+import com.rabobank.statement.processor.StatementProcessor;
 
 /**
  * @author ravi, This is main program, accept input and output file from commend
@@ -32,13 +32,13 @@ public class App implements CommandLineRunner {
 	 *            - will be passed from Command Line Ex -mvn spring-boot:run
 	 *            -Dspring-boot.run.arguments=C:\\rabo\\records.csv,C:\\rabo\\result.txt
 	 */
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		SpringApplication.run(App.class, args);
 	}
 
-	public void run(String... args) throws Exception  {
+	public void run(final String... args) throws Exception {
 		LOGGER.info("Statement Process Starting");
-		if (args.length == 2 && Files.exists(Paths.get(args[0])) && !StringUtils.isEmpty(args[1])) {
+		if (args != null && args.length == 2 && Files.exists(Paths.get(args[0])) && !StringUtils.isEmpty(args[1])) {
 			statementProcessor.processStatement(args[0], args[1]);
 		} else {
 			throw new Exception("Invalid arguments/files, Please check your input arguments");

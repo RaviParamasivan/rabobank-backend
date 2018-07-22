@@ -1,4 +1,4 @@
-package com.rabobank.processor.file;
+package com.rabobank.statement.reader.impl;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,20 +12,24 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.rabobank.domain.Record;
 import com.rabobank.domain.Records;
+import com.rabobank.statement.CSVColumn;
+import com.rabobank.statement.reader.StatementReader;
 
 /**
  * @author ravi
  *
  */
+@Qualifier("csv")
 @Component
 public class CSVStatementReaderImpl implements StatementReader {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -36,8 +40,8 @@ public class CSVStatementReaderImpl implements StatementReader {
 	 */
 	public Records readStatement(final String inputFilePath) throws Exception {
 		CSVParser csvParser;
-		Records records = null;
-		Record record = null;
+		Records records;
+		Record record;
 		LOGGER.debug("CSV File read starting..");
 		try (BufferedReader reader = new BufferedReader(new FileReader(inputFilePath))) {
 			csvParser = new CSVParser(reader,
@@ -56,7 +60,7 @@ public class CSVStatementReaderImpl implements StatementReader {
 				record.setMutation(getBigDecimal(csvRecord.get(CSVColumn.MUTATION.getName())));
 				record.setEndBalance(getBigDecimal(csvRecord.get(CSVColumn.END_BALANCE.getName())));
 				recordList.add(record);
-				
+
 			}
 			records = new Records();
 			records.setRecord(recordList);
