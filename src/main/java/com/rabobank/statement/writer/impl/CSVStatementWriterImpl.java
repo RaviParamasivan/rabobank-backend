@@ -11,7 +11,6 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import com.rabobank.domain.Record;
 import com.rabobank.domain.Records;
@@ -63,7 +62,7 @@ public class CSVStatementWriterImpl implements StatementWriter {
 	 * @param csvFilePrinter
 	 * @param record
 	 */
-	private void writeStatementToCSV(final CSVPrinter csvFilePrinter,final Record record) {
+	private void writeStatementToCSV(final CSVPrinter csvFilePrinter, final Record record) {
 		try {
 			List<Object> statement = new ArrayList<>();
 			statement.add(record.getReference());
@@ -73,7 +72,7 @@ public class CSVStatementWriterImpl implements StatementWriter {
 			statement.add(record.getMutation());
 			statement.add(record.getEndBalance());
 			statement.add(record.getIsValidEndBalance());
-			statement.add(StringUtils.isEmpty(record.getIsUniqueStatement()) ? true : record.getIsUniqueStatement());
+			statement.add(record.getIsUniqueStatement());
 			csvFilePrinter.printRecord(statement);
 		} catch (IOException e) {
 			LOGGER.error("Exception occurred while writing the statement to CSV report", e);

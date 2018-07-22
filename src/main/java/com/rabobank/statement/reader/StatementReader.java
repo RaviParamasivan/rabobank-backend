@@ -1,8 +1,7 @@
 package com.rabobank.statement.reader;
 
-import org.apache.commons.io.FilenameUtils;
-
 import com.rabobank.domain.Records;
+import com.rabobank.statement.FileType;
 import com.rabobank.statement.reader.impl.CSVStatementReaderImpl;
 import com.rabobank.statement.reader.impl.XMLStatementReaderImpl;
 
@@ -12,34 +11,12 @@ import com.rabobank.statement.reader.impl.XMLStatementReaderImpl;
  */
 public interface StatementReader {
 
-	enum FileType {
-		CSV("csv"), XML("xml"),EXT_NOT_FOUND("File Extension not found");
-		String fileExtension;
-
-		private FileType(final String fileExtension) {
-			this.fileExtension = fileExtension;
-		}
-
-		String getFileExtension() {
-			return fileExtension;
-		}
-
-		static FileType getFileType(final String inputFilePath) {
-			if (FilenameUtils.isExtension(inputFilePath, CSV.getFileExtension())) {
-				return CSV;
-			} else if (FilenameUtils.isExtension(inputFilePath, XML.getFileExtension())) {
-				return XML;
-			}
-			return EXT_NOT_FOUND;
-		}
-	}
-
 	/**
 	 * @param fileName
 	 * @return
 	 * @throws Exception
 	 */
-	Records readStatement(final String inputFilePath) throws Exception;
+	Records readStatement(String inputFilePath) throws Exception;
 
 	/**
 	 * @param inputFilePath
@@ -47,8 +24,7 @@ public interface StatementReader {
 	 * @throws Exception
 	 */
 	static StatementReader getFileReader(final String inputFilePath) throws Exception {
-		FileType fileType = FileType.getFileType(inputFilePath);
-		switch (fileType) {
+		switch (FileType.getFileType(inputFilePath.toLowerCase())) {
 		case CSV:
 			return new CSVStatementReaderImpl();
 		case XML:

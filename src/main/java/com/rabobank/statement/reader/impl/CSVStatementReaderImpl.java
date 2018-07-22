@@ -24,8 +24,9 @@ import com.rabobank.statement.reader.StatementReader;
  * @author ravi
  *
  */
-@Qualifier("csv")
+
 @Component
+@Qualifier("csv")
 public class CSVStatementReaderImpl implements StatementReader {
 
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -60,7 +61,6 @@ public class CSVStatementReaderImpl implements StatementReader {
 				record.setMutation(getBigDecimal(csvRecord.get(CSVColumn.MUTATION.getName())));
 				record.setEndBalance(getBigDecimal(csvRecord.get(CSVColumn.END_BALANCE.getName())));
 				recordList.add(record);
-
 			}
 			records = new Records();
 			records.setRecord(recordList);

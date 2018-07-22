@@ -21,9 +21,6 @@ public class StatementProcessorImpl implements StatementProcessor {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	@Autowired
-	private StatementWriter statementWriter;
-
-	@Autowired
 	private StatementValidator statementValidater;
 
 	/*
@@ -38,12 +35,12 @@ public class StatementProcessorImpl implements StatementProcessor {
 	public void processStatement(final String inputFilePath, final String outputFilePath) {
 		Records records = null;
 		try {
-			records = StatementReader.getFileReader(inputFilePath.toLowerCase()).readStatement(inputFilePath);
+			records = StatementReader.getFileReader(inputFilePath).readStatement(inputFilePath);
 			statementValidater.isValidRecordBalance(records);
 			statementValidater.isValidUniqueRecord(records);
-			statementWriter.writeStatement(records, outputFilePath);
+			StatementWriter.getFileWriter(outputFilePath).writeStatement(records, outputFilePath);
 		} catch (Exception e) {
 			LOGGER.error("Exception while processing the document", e);
-		}		
+		}
 	}
 }

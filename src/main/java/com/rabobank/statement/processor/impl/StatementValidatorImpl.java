@@ -19,9 +19,9 @@ import com.rabobank.statement.processor.StatementValidator;
 @Component
 public class StatementValidatorImpl implements StatementValidator {
 
-	private StatementEndBalanceValidator statementEndBalanceValidator = ((startBalance, mutation, endBalance) -> !StringUtils.isEmpty(startBalance)
-			&& !StringUtils.isEmpty(mutation) && !StringUtils.isEmpty(endBalance)
-			&& startBalance.add(mutation).compareTo(endBalance) == 0);
+	private StatementEndBalanceValidator statementEndBalanceValidator = ((startBalance, mutation,
+			endBalance) -> !StringUtils.isEmpty(startBalance) && !StringUtils.isEmpty(mutation)
+					&& !StringUtils.isEmpty(endBalance) && startBalance.add(mutation).compareTo(endBalance) == 0);
 
 	/*
 	 * (non-Javadoc) This method used to validate the given statements are unique or
@@ -33,21 +33,18 @@ public class StatementValidatorImpl implements StatementValidator {
 	 */
 
 	public boolean isValidUniqueRecord(final Records records) {
-
 		if (records != null) {
-			records.setIsUniqueStatement(true);
 			// Grouping by reference no to get the duplicate statement
 			Map<BigInteger, Long> groupByReference = records.getRecord().parallelStream()
 					.collect(Collectors.groupingBy(Record::getReference, Collectors.counting()));
 
 			// update the duplicate in Records Object
 			groupByReference.entrySet().stream().filter(entrySet -> entrySet.getValue() > 1).forEach(duplicate -> {
-				records.setIsUniqueStatement(false);
 				records.getRecord().stream()
 						.filter(duplicateStatement -> duplicateStatement.getReference().equals(duplicate.getKey()))
 						.forEach(deplicateRecord -> deplicateRecord.setIsUniqueStatement(false));
 			});
-			return records.isUniqueStatement();
+			return !groupByReference.isEmpty();
 		} else {
 			return false;
 		}
@@ -63,18 +60,16 @@ public class StatementValidatorImpl implements StatementValidator {
 	 * the end balance are correct, else false
 	 */
 	public boolean isValidRecordBalance(final Records records) {
-
 		if (records != null) {
-			records.setIsValidEndBalance(true);
 			records.getRecord().stream().forEach(record -> {
-				if (statementEndBalanceValidator.isValid(record.getStartBalance(), record.getMutation(), record.getEndBalance())) {
+				if (statementEndBalanceValidator.isValid(record.getStartBalance(), record.getMutation(),
+						record.getEndBalance())) {
 					record.setIsValidEndBalance(true);
 				} else {
 					record.setIsValidEndBalance(false);
-					records.setIsValidEndBalance(false);
 				}
 			});
-			return records.isValidEndBalance();
+			return !records.getRecord().stream().filter(record -> !record.getIsValidEndBalance()).findAny().isPresent();
 		} else {
 			return false;
 		}

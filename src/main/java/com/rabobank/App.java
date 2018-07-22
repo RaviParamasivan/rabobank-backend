@@ -1,16 +1,13 @@
 package com.rabobank;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.util.StringUtils;
 
+import com.rabobank.statement.FileType;
 import com.rabobank.statement.processor.StatementProcessor;
 
 /**
@@ -38,15 +35,11 @@ public class App implements CommandLineRunner {
 
 	public void run(final String... args) throws Exception {
 		LOGGER.info("Statement Process Starting");
-		if (isValidArgs(args)) {
+		if (args != null && args.length == 2 && FileType.isValidFileType(args[0], args[1])) {
 			statementProcessor.processStatement(args[0], args[1]);
 		} else {
 			throw new Exception("Invalid arguments/files, Please check your input arguments");
 		}
 		LOGGER.info("Statement Process Ending");
-	}
-
-	private boolean isValidArgs(final String... args) {
-		return (args != null && args.length == 2 && Files.exists(Paths.get(args[0])) && !StringUtils.isEmpty(args[1]));
 	}
 }

@@ -81,7 +81,7 @@ public class Record {
 	}
 
 	public Boolean getIsUniqueStatement() {
-		return isUniqueStatement;
+		return null == isUniqueStatement ? true : isUniqueStatement;
 	}
 
 	public void setIsUniqueStatement(Boolean isUniqueStatement) {
