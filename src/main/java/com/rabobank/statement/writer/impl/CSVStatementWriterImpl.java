@@ -11,6 +11,7 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.rabobank.domain.Record;
 import com.rabobank.domain.Records;
@@ -25,7 +26,7 @@ import com.rabobank.statement.writer.StatementWriter;
 public class CSVStatementWriterImpl implements StatementWriter {
 
 	private static final Logger LOGGER = LogManager.getLogger();
-	private CSVPrinter csvFilePrinter;
+	private static final String NEW_LINE_SEPARATOR = "\n";
 
 	/*
 	 * 
@@ -41,13 +42,14 @@ public class CSVStatementWriterImpl implements StatementWriter {
 		final Object[] FILE_HEADER = { CSVColumn.REFERENCE.getName(), CSVColumn.ACCOUNT_NO.getName(),
 				CSVColumn.DESCRIPTION.getName(), CSVColumn.START_BALANCE.getName(), CSVColumn.MUTATION.getName(),
 				CSVColumn.IS_VALID_RECORD_BALANCE.getName(), CSVColumn.IS_VALID_UNIQUE_RECORD.getName() };
-		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator("\n");
+
+		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator(NEW_LINE_SEPARATOR);
+		CSVPrinter csvFilePrinter;
+
 		try (FileWriter fileWriter = new FileWriter(new File(outputFilePath))) {
 			csvFilePrinter = new CSVPrinter(fileWriter, csvFileFormat);
 			csvFilePrinter.printRecord(FILE_HEADER);
-			records.getRecord().stream().forEach(record -> {
-				writeStatementToCSV(csvFilePrinter, record);
-			});
+			records.getRecord().stream().forEach(record -> writeStatementToCSV(csvFilePrinter, record));
 			fileWriter.flush();
 			isWriteStatementSuccess = true;
 		} catch (Exception e) {
@@ -57,7 +59,11 @@ public class CSVStatementWriterImpl implements StatementWriter {
 		return isWriteStatementSuccess;
 	}
 
-	private void writeStatementToCSV(CSVPrinter csvFilePrinter, Record record) {
+	/**
+	 * @param csvFilePrinter
+	 * @param record
+	 */
+	private void writeStatementToCSV(final CSVPrinter csvFilePrinter,final Record record) {
 		try {
 			List<Object> statement = new ArrayList<>();
 			statement.add(record.getReference());
@@ -65,6 +71,9 @@ public class CSVStatementWriterImpl implements StatementWriter {
 			statement.add(record.getDescription());
 			statement.add(record.getStartBalance());
 			statement.add(record.getMutation());
+			statement.add(record.getEndBalance());
+			statement.add(record.getIsValidEndBalance());
+			statement.add(StringUtils.isEmpty(record.getIsUniqueStatement()) ? true : record.getIsUniqueStatement());
 			csvFilePrinter.printRecord(statement);
 		} catch (IOException e) {
 			LOGGER.error("Exception occurred while writing the statement to CSV report", e);

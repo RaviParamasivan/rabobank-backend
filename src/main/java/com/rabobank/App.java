@@ -30,7 +30,7 @@ public class App implements CommandLineRunner {
 	/**
 	 * @param args
 	 *            - will be passed from Command Line Ex -mvn spring-boot:run
-	 *            -Dspring-boot.run.arguments=C:\\rabo\\records.csv,C:\\rabo\\result.txt
+	 *            -Dspring-boot.run.arguments=C:\\rabo\\records.csv,C:\\rabo\\result.csv
 	 */
 	public static void main(final String[] args) {
 		SpringApplication.run(App.class, args);
@@ -38,11 +38,15 @@ public class App implements CommandLineRunner {
 
 	public void run(final String... args) throws Exception {
 		LOGGER.info("Statement Process Starting");
-		if (args != null && args.length == 2 && Files.exists(Paths.get(args[0])) && !StringUtils.isEmpty(args[1])) {
+		if (isValidArgs(args)) {
 			statementProcessor.processStatement(args[0], args[1]);
 		} else {
 			throw new Exception("Invalid arguments/files, Please check your input arguments");
 		}
 		LOGGER.info("Statement Process Ending");
+	}
+
+	private boolean isValidArgs(final String... args) {
+		return (args != null && args.length == 2 && Files.exists(Paths.get(args[0])) && !StringUtils.isEmpty(args[1]));
 	}
 }
