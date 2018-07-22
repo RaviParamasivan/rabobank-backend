@@ -39,11 +39,10 @@ public class StatementValidatorImpl implements StatementValidator {
 					.collect(Collectors.groupingBy(Record::getReference, Collectors.counting()));
 
 			// update the duplicate in Records Object
-			groupByReference.entrySet().stream().filter(entrySet -> entrySet.getValue() > 1).forEach(duplicate -> {
-				records.getRecord().stream()
-						.filter(duplicateStatement -> duplicateStatement.getReference().equals(duplicate.getKey()))
-						.forEach(deplicateRecord -> deplicateRecord.setIsUniqueStatement(false));
-			});
+			groupByReference.entrySet().stream().filter(entrySet -> entrySet.getValue() > 1)
+					.forEach(duplicate -> records.getRecord().stream()
+							.filter(duplicateStatement -> duplicateStatement.getReference().equals(duplicate.getKey()))
+							.forEach(deplicateRecord -> deplicateRecord.setIsUniqueStatement(false)));
 			return !groupByReference.entrySet().stream().filter(entrySet -> entrySet.getValue() > 1).findAny()
 					.isPresent();
 		} else {

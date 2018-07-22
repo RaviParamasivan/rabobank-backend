@@ -14,7 +14,7 @@ public interface StatementWriter {
 	boolean writeStatement(Records records, String outputFileName) throws Exception;
 	
 	static StatementWriter getFileWriter(final String outputFilePath) throws Exception {
-		switch (FileType.getFileType(outputFilePath.toLowerCase())) {
+		switch (FileType.getFileType(outputFilePath)) {
 		case CSV:
 			return new CSVStatementWriterImpl();
 		case XML:

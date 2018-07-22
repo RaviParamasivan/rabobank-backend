@@ -19,9 +19,9 @@ public enum FileType {
 	}
 
 	public static FileType getFileType(final String inputFilePath) {
-		if (FilenameUtils.isExtension(inputFilePath, CSV.getFileExtension())) {
+		if (FilenameUtils.isExtension(inputFilePath.toLowerCase(), CSV.getFileExtension())) {
 			return CSV;
-		} else if (FilenameUtils.isExtension(inputFilePath, XML.getFileExtension())) {
+		} else if (FilenameUtils.isExtension(inputFilePath.toLowerCase(), XML.getFileExtension())) {
 			return XML;
 		}
 		return FILE_TYPE_NOT_SUPPORTED;

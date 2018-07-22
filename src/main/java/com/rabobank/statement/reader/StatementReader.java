@@ -24,7 +24,7 @@ public interface StatementReader {
 	 * @throws Exception
 	 */
 	static StatementReader getFileReader(final String inputFilePath) throws Exception {
-		switch (FileType.getFileType(inputFilePath.toLowerCase())) {
+		switch (FileType.getFileType(inputFilePath)) {
 		case CSV:
 			return new CSVStatementReaderImpl();
 		case XML:
