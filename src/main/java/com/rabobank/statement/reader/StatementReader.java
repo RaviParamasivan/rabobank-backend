@@ -13,7 +13,7 @@ import com.rabobank.statement.reader.impl.XMLStatementReaderImpl;
 public interface StatementReader {
 
 	enum FileType {
-		CSV("csv"), XML("xml");
+		CSV("csv"), XML("xml"),EXT_NOT_FOUND("File Extension not found");
 		String fileExtension;
 
 		private FileType(final String fileExtension) {
@@ -30,7 +30,7 @@ public interface StatementReader {
 			} else if (FilenameUtils.isExtension(inputFilePath, XML.getFileExtension())) {
 				return XML;
 			}
-			return null;
+			return EXT_NOT_FOUND;
 		}
 	}
 
@@ -47,7 +47,7 @@ public interface StatementReader {
 	 * @throws Exception
 	 */
 	static StatementReader getFileReader(final String inputFilePath) throws Exception {
-		FileType fileType = FileType.getFileType(inputFilePath.toLowerCase());
+		FileType fileType = FileType.getFileType(inputFilePath);
 		switch (fileType) {
 		case CSV:
 			return new CSVStatementReaderImpl();
