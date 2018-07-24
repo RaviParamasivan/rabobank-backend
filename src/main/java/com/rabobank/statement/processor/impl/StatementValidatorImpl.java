@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import com.rabobank.domain.Record;
-import com.rabobank.domain.Records;
+import com.rabobank.model.Record;
+import com.rabobank.model.Records;
 import com.rabobank.statement.processor.StatementEndBalanceValidator;
 import com.rabobank.statement.processor.StatementValidator;
 

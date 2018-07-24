@@ -1,4 +1,4 @@
-package com.rabobank.domain;
+package com.rabobank.model;
 
 import java.util.List;
 

@@ -15,8 +15,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import com.rabobank.domain.Record;
-import com.rabobank.domain.Records;
+import com.rabobank.model.Record;
+import com.rabobank.model.Records;
 import com.rabobank.statement.CSVColumn;
 import com.rabobank.statement.reader.StatementReader;
 

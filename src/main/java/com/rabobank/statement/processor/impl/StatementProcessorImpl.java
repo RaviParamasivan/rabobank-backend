@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.rabobank.domain.Records;
+import com.rabobank.model.Records;
 import com.rabobank.statement.processor.StatementProcessor;
 import com.rabobank.statement.processor.StatementValidator;
 import com.rabobank.statement.reader.StatementReader;
@@ -40,7 +40,7 @@ public class StatementProcessorImpl implements StatementProcessor {
 			statementValidater.isValidUniqueRecord(records);
 			StatementWriter.getFileWriter(outputFilePath).writeStatement(records, outputFilePath);
 		} catch (Exception e) {
-			LOGGER.error("Exception while processing the document", e);
+			LOGGER.error("Exception while processing the statement", e);
 		}
 	}
 }

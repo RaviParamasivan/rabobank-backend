@@ -12,8 +12,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.rabobank.domain.Record;
-import com.rabobank.domain.Records;
+import com.rabobank.model.Record;
+import com.rabobank.model.Records;
 import com.rabobank.statement.CSVColumn;
 import com.rabobank.statement.writer.StatementWriter;
 
@@ -40,7 +40,8 @@ public class CSVStatementWriterImpl implements StatementWriter {
 		boolean isWriteStatementSuccess = false;
 		final Object[] FILE_HEADER = { CSVColumn.REFERENCE.getName(), CSVColumn.ACCOUNT_NO.getName(),
 				CSVColumn.DESCRIPTION.getName(), CSVColumn.START_BALANCE.getName(), CSVColumn.MUTATION.getName(),
-				CSVColumn.IS_VALID_RECORD_BALANCE.getName(), CSVColumn.IS_VALID_UNIQUE_RECORD.getName() };
+				CSVColumn.END_BALANCE.getName(), CSVColumn.IS_VALID_RECORD_BALANCE.getName(),
+				CSVColumn.IS_VALID_UNIQUE_RECORD.getName() };
 
 		CSVFormat csvFileFormat = CSVFormat.DEFAULT.withRecordSeparator(NEW_LINE_SEPARATOR);
 		CSVPrinter csvFilePrinter;

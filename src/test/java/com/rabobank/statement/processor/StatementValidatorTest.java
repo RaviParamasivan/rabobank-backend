@@ -11,8 +11,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.rabobank.domain.Record;
-import com.rabobank.domain.Records;
+import com.rabobank.model.Record;
+import com.rabobank.model.Records;
 import com.rabobank.statement.processor.StatementValidator;
 import com.rabobank.statement.processor.impl.StatementValidatorImpl;
 

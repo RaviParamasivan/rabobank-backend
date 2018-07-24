@@ -1,7 +1,7 @@
 package com.rabobank.statement.reader;
 
-import com.rabobank.domain.Records;
-import com.rabobank.statement.FileType;
+import com.rabobank.model.Records;
+import com.rabobank.statement.StatementFileType;
 import com.rabobank.statement.reader.impl.CSVStatementReaderImpl;
 import com.rabobank.statement.reader.impl.XMLStatementReaderImpl;
 
@@ -24,7 +24,7 @@ public interface StatementReader {
 	 * @throws Exception
 	 */
 	static StatementReader getFileReader(final String inputFilePath) throws Exception {
-		switch (FileType.getFileType(inputFilePath)) {
+		switch (StatementFileType.getFileType(inputFilePath)) {
 		case CSV:
 			return new CSVStatementReaderImpl();
 		case XML:

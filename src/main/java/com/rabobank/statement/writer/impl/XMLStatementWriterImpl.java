@@ -5,7 +5,7 @@ import java.io.File;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 
-import com.rabobank.domain.Records;
+import com.rabobank.model.Records;
 import com.rabobank.statement.writer.StatementWriter;
 
 public class XMLStatementWriterImpl implements StatementWriter {

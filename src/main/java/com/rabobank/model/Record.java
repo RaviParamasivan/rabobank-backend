@@ -1,4 +1,4 @@
-package com.rabobank.domain;
+package com.rabobank.model;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

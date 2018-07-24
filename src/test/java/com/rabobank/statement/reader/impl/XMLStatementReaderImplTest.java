@@ -9,7 +9,7 @@ import java.io.File;
 
 import org.junit.Test;
 
-import com.rabobank.domain.Records;
+import com.rabobank.model.Records;
 import com.rabobank.statement.reader.StatementReader;
 import com.rabobank.statement.reader.impl.CSVStatementReaderImpl;
 import com.rabobank.statement.reader.impl.XMLStatementReaderImpl;

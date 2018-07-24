@@ -7,7 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.rabobank.statement.FileType;
+import com.rabobank.statement.StatementFileType;
 import com.rabobank.statement.processor.StatementProcessor;
 
 /**
@@ -28,14 +28,23 @@ public class App implements CommandLineRunner {
 	 * @param args
 	 *            - will be passed from Command Line Ex -mvn spring-boot:run
 	 *            -Dspring-boot.run.arguments=C:\\rabo\\records.csv,C:\\rabo\\result.csv
+	 *            input file type can be csv or xml. output file type can be csv or
+	 *            xml
 	 */
 	public static void main(final String[] args) {
 		SpringApplication.run(App.class, args);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.springframework.boot.CommandLineRunner#run(java.lang.String[]) This
+	 * method validate the user input/output file type and initiate the statement
+	 * processing
+	 */
 	public void run(final String... args) throws Exception {
 		LOGGER.info("Statement Process Starting");
-		if (args != null && args.length == 2 && FileType.isValidFileType(args[0], args[1])) {
+		if (args != null && args.length == 2 && StatementFileType.isValidFileType(args[0], args[1])) {
 			statementProcessor.processStatement(args[0], args[1]);
 		} else {
 			throw new Exception("Invalid arguments/files, Please check your input arguments");

@@ -5,12 +5,12 @@ import java.nio.file.Paths;
 
 import org.apache.commons.io.FilenameUtils;
 
-public enum FileType {
+public enum StatementFileType {
 	CSV("csv"), XML("xml"), FILE_TYPE_NOT_SUPPORTED("File type not supported");
 
 	String fileExtension;
 
-	private FileType(final String fileExtension) {
+	private StatementFileType(final String fileExtension) {
 		this.fileExtension = fileExtension;
 	}
 
@@ -18,7 +18,7 @@ public enum FileType {
 		return fileExtension;
 	}
 
-	public static FileType getFileType(final String inputFilePath) {
+	public static StatementFileType getFileType(final String inputFilePath) {
 		if (FilenameUtils.isExtension(inputFilePath.toLowerCase(), CSV.getFileExtension())) {
 			return CSV;
 		} else if (FilenameUtils.isExtension(inputFilePath.toLowerCase(), XML.getFileExtension())) {
@@ -28,8 +28,8 @@ public enum FileType {
 	}
 
 	public static boolean isValidFileType(final String inputFilePath, final String outputFilePath) {
-		return !FILE_TYPE_NOT_SUPPORTED.equals(FileType.getFileType(inputFilePath))
-				&& !FILE_TYPE_NOT_SUPPORTED.equals(FileType.getFileType(outputFilePath))
+		return !FILE_TYPE_NOT_SUPPORTED.equals(StatementFileType.getFileType(inputFilePath))
+				&& !FILE_TYPE_NOT_SUPPORTED.equals(StatementFileType.getFileType(outputFilePath))
 				&& Files.exists(Paths.get(inputFilePath));
 	}
 
