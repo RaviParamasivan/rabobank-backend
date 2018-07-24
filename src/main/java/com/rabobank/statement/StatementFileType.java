@@ -5,6 +5,11 @@ import java.nio.file.Paths;
 
 import org.apache.commons.io.FilenameUtils;
 
+/**
+ * @author ravi this file used to validate the input and output statement file
+ *         type. the file will not be processed if file type not matching
+ *
+ */
 public enum StatementFileType {
 	CSV("csv"), XML("xml"), FILE_TYPE_NOT_SUPPORTED("File type not supported");
 
