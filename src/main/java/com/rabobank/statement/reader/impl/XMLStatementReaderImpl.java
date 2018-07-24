@@ -3,6 +3,7 @@ package com.rabobank.statement.reader.impl;
 import java.io.File;
 
 import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
 import org.apache.logging.log4j.LogManager;
@@ -32,10 +33,13 @@ public class XMLStatementReaderImpl implements StatementReader {
 			Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 			records = (Records) unmarshaller.unmarshal(file);
 			LOGGER.debug("Read xml successfully and converted xml into pojo completed");
+		} catch (JAXBException e) {
+			LOGGER.error("JAXBException While reading the statement from XML", e);
+			throw new Exception("JAXBException While reading the statement from XML");
 		} catch (Exception e) {
 			LOGGER.error("Exception While reading the statement from XML", e);
 			throw new Exception("Exception While reading the statement from XML");
-		}
+		}		
 		return records;
 	}
 }
